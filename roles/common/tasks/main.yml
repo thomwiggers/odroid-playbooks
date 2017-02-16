@@ -4,3 +4,15 @@
   include: common.yml
   tags:
     - common
+
+- name: Set locales
+  include: locale.yml
+  tags:
+    - locale
+    - common
+
+- name: Configure hostname
+  include: hostname.yml
+  tags:
+    - hostname
+    - common

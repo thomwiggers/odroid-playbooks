@@ -1,0 +1,6 @@
+---
+
+- name: Build, install and load cyclecounter
+  include: cyclecounter.yml
+  tags:
+    - cyclecounter

@@ -1,0 +1,45 @@
+---
+
+- name: Install kernel headers and base-devel
+  pacman:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - linux-odroid-c2-headers
+    - base-devel
+
+- name: Create working dir
+  file:
+    path: /build/cyclecounter/
+    state: directory
+
+- name: Clone enable_arm_pmu
+  git:
+    depth: 1
+    repo: https://github.com/rdolbeau/enable_arm_pmu
+    dest: /build/cyclecounter/
+    version: 4be7b9fe5e9438a3bae95fc4dcef06aaa28fe871
+
+- name: Compile cyclecounter module
+  make:
+    chdir: /build/cyclecounter
+
+- name: Install cyclecounter in /lib/modules/$(uname -r)
+  copy:
+    src: "/build/cyclecounter/ko/enable_arm_pmu.ko"
+    remote_src: true
+    dest: "/lib/modules/{{ ansible_kernel }}/enable_arm_pmu.ko"
+  register: copied_cyclecounter
+
+- name: Install autoloader in /etc/modules-load.d
+  copy:
+    content: "enable_arm_pmu"
+    dest: "/etc/modules-load.d/cpucycles.conf"
+
+- name: Run depmod
+  command: depmod
+  when: copied_cyclecounter.changed
+
+- name: Load module
+  modprobe:
+    name: enable_arm_pmu

@@ -1,24 +1,5 @@
 ---
 
-- name: Update locales
-  locale_gen:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - en_US.UTF-8
-    - en_GB.UTF-8
-    - nl_NL.UTF-8
-  tags:
-    - locale
-
-- name: Configure locale
-  copy:
-    content: "LANG=en_GB.UTF-8"
-    dest: /etc/locale.conf
-    mode: 0644
-  tags:
-    - locale
-
 - name: Update pacman cache and install system updates
   pacman: update_cache=yes upgrade=yes
   tags:
