@@ -54,6 +54,7 @@
   tags:
     - services
 
+# Hacky
 - name: Install heartbeat cronjob
   cron:
     minute: "*/5"
