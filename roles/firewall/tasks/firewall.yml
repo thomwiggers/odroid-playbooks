@@ -1,0 +1,10 @@
+---
+
+- name: Install ufw
+  pacman: name=ufw state=present
+
+- name: Open SSH port
+  ufw: port=ssh rule=allow
+
+- name: Enable ufw
+  ufw: state=enabled

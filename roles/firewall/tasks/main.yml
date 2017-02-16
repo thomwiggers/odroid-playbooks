@@ -1,0 +1,6 @@
+---
+
+- name: Firewall
+  include: firewall.yml
+  tags:
+    - firewall

@@ -1,0 +1,20 @@
+# vim: set sw=2 ts=2 et :
+---
+
+# Warning: if you need to delete users, modify their state and run the playbook
+# Before removing them!
+
+# Note that the password is updated every time if this script is run
+# Set the password here to a hash.
+# this is helpful: https://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module
+
+users:
+  - name: thom
+    gecos: Thom Wiggers
+    groups: "adm,wheel"
+    shell: /bin/zsh
+    state: present
+    password: "$6$rounds=656000$lN1mZT1BYlOkzgmA$.mBUeQtoHus363y27NMgCrG3y27cOs9dw25LGqsqxXi1DuCJfsHO5G27HplLHrO6ibEscUAqg0uoFMkZbbi8V."
+    authorized_keys:
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIfWt1EWn3ndRNJyvoo3Ugx/uUXSbGsnY8AZgIuFgZwM thom@styx"
+      - "{{ lookup('file', 'files/pubkeys/thom_epass.pub') }}"

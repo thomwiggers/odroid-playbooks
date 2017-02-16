@@ -1,0 +1,63 @@
+---
+
+- name: Update locales
+  locale_gen:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - en_US.UTF-8
+    - en_GB.UTF-8
+    - nl_NL.UTF-8
+  tags:
+    - locale
+
+- name: Configure locale
+  copy:
+    content: "LANG=en_GB.UTF-8"
+    dest: /etc/locale.conf
+    mode: 0644
+  tags:
+    - locale
+
+- name: Update pacman cache and install system updates
+  pacman: update_cache=yes upgrade=yes
+  tags:
+    - pacman
+
+- name: Install packages
+  pacman:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items: "{{ installed_packages }}"
+  tags:
+    - packages
+    - pacman
+
+- name: Remove obsolete packages
+  pacman:
+    name: "{{ item }}"
+    state: absent
+    recurse: yes
+  with_items: "{{ removed_packages }}"
+  tags:
+    - packages
+    - pacman
+
+- name: Manage systemd services
+  systemd:
+    daemon_reload: yes
+    enabled: "{{ item.enabled }}"
+    state: "{{ item.state }}"
+    name: "{{ item.name }}"
+  with_items: "{{ systemd_services }}"
+  tags:
+    - services
+
+- name: Install heartbeat cronjob
+  cron:
+    minute: "*/5"
+    name: "heartbeat"
+    job: "curl https://rded.nl/{{ ansible_hostname }} > /dev/null"
+  tags:
+    - cron

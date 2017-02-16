@@ -1,0 +1,6 @@
+---
+
+- name: Common tasks
+  include: common.yml
+  tags:
+    - common

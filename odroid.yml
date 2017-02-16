@@ -1,0 +1,11 @@
+---
+
+- name: Deploy common configuration
+  hosts: odroids
+  become: true
+
+  roles:
+    - common
+    - firewall
+    - users
+

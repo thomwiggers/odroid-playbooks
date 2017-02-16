@@ -1,0 +1,37 @@
+---
+
+installed_packages:
+  - vim
+  - python
+  - python2
+  - python-pip
+  - python2-pip
+  - python-virtualenv
+  - python-virtualenvwrapper
+  - base-devel
+  - clang
+  - zsh
+  - git
+  - svn
+  - ntp
+  - cronie
+  - htop
+  - strace
+  - ltrace
+  - wget
+  - curl
+  - tmux
+  # powerline: fancy prompts
+  - powerline
+  - powerline-vim
+  - python-pygit2
+
+# NOTE: delete packages by moving them to the list below!
+
+removed_packages: []
+
+# Systemd services
+systemd_services:
+  - name: cronie
+    state: started
+    enabled: yes

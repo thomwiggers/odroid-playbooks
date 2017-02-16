@@ -1,0 +1,21 @@
+---
+
+- name: add users
+  user:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+    groups: "{{ item.groups }}"
+    shell: "{{ item.shell }}"
+    password: "{{ item.password }}"
+    comment: "{{ item.gecos }}"
+  with_items: "{{ users }}"
+
+- name: Set authorized_keys for users
+  authorized_key:
+    user: "{{ item.0.name }}"
+    key: "{{ item.1 }}"
+  with_subelements:
+    - "{{ users }}"
+    - authorized_keys
+
+
