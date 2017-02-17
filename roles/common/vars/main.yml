@@ -21,6 +21,8 @@ installed_packages:
   - wget
   - curl
   - tmux
+  - ack
+  - the_silver_searcher
   # powerline: fancy prompts
   - powerline
   - powerline-vim
