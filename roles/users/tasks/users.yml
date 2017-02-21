@@ -26,3 +26,13 @@
     state: present
   notify:
     - reload sshd
+
+- name: Allow group wheel to execute sudo without password
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^(#\s*)?%wheel\s+ALL=\(ALL\)\s+NOPASSWD:\s+ALL'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+  tags:
+    - sudo

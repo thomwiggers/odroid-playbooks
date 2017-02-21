@@ -9,6 +9,8 @@ installed_packages:
   - python-virtualenv
   - python-virtualenvwrapper
   - base-devel
+  - cmake
+  - valgrind
   - clang
   - zsh
   - git
