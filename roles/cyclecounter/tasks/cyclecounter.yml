@@ -20,6 +20,17 @@
     dest: /build/cyclecounter/
     version: 4be7b9fe5e9438a3bae95fc4dcef06aaa28fe871
 
+- name: Check cyclecounter location
+  stat:
+    path: "/lib/modules/{{ ansible_kernel }}/enable_arm_pmu.ko"
+  register: cyclecountermodulestat
+
+- name: Remove currently built module if not installed
+  make:
+    chdir: /build/cyclecounter/
+    target: clean
+  when: not cyclecountermodulestat.stat.exists
+
 - name: Compile cyclecounter module
   make:
     chdir: /build/cyclecounter
