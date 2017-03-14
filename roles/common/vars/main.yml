@@ -39,3 +39,6 @@ systemd_services:
   - name: cronie
     state: started
     enabled: yes
+  - name: ntpd
+    state: started
+    enabled: yes
