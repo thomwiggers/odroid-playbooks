@@ -8,3 +8,11 @@
 
 - name: Enable ufw
   ufw: state=enabled
+
+- name: Enable ufw on boot
+
+- name: Manage systemd services
+  systemd:
+    daemon_reload: yes
+    enabled: ufw
+    state: enabled
