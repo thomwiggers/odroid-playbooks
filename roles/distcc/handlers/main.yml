@@ -1,0 +1,6 @@
+---
+
+- name: restart distccd
+  service:
+    name: distccd
+    state: restarted

@@ -1,0 +1,38 @@
+---
+
+- block:
+  - name: Install distcc
+    pacman:
+      name: distcc
+      state: present
+
+  - name: Configure allowed hosts
+    lineinfile:
+      line: 'DISTCC_ARGS="{{ distcc_args }} --user nobody --allow 127.0.0.1"'
+      regexp: '^DISTCC_ARGS='
+      path: /etc/conf.d/distccd
+    notify:
+      - restart distccd
+
+  - name: Set distcc hosts
+    template:
+      src: distcc_hosts.j2
+      dest: /etc/distcc/hosts
+    notify:
+      - restart distccd
+
+  - name: Open DistCC ports
+    ufw:
+      port: distcc
+      rule: allow
+
+  - name: Enable and start distccd service
+    systemd:
+      daemon_reload: yes
+      no_block: yes
+      name: distccd
+      enabled: yes
+      state: started
+
+  tags:
+    - distcc

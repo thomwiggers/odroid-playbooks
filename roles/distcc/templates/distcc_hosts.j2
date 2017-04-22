@@ -1,0 +1,10 @@
+# --- /etc/distcc/hosts -----------------------
+# See the "Hosts Specification" section of
+# "man distcc" for the format of this file.
+#
+# Managed by ansible
+127.0.0.1
+{% for name in groups['distcc'] %}
+{{ name }}
+{% endfor %}
++zeroconf
