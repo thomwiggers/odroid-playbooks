@@ -12,9 +12,12 @@ users:
   - name: thom
     gecos: Thom Wiggers
     groups: "adm,wheel"
-    shell: /bin/zsh
+    shell: /bin/bash
     state: present
     password: "$6$rounds=656000$lN1mZT1BYlOkzgmA$.mBUeQtoHus363y27NMgCrG3y27cOs9dw25LGqsqxXi1DuCJfsHO5G27HplLHrO6ibEscUAqg0uoFMkZbbi8V."
     authorized_keys:
       - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIfWt1EWn3ndRNJyvoo3Ugx/uUXSbGsnY8AZgIuFgZwM thom@styx"
       - "{{ lookup('file', 'files/pubkeys/thom_epass.pub') }}"
+  - name: alarm
+    state: absent
+    authorized_keys: []

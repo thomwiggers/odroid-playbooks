@@ -4,10 +4,11 @@
   user:
     name: "{{ item.name }}"
     state: "{{ item.state }}"
-    groups: "{{ item.groups }}"
-    shell: "{{ item.shell }}"
-    password: "{{ item.password }}"
-    comment: "{{ item.gecos }}"
+    groups: "{{ item.groups|default([]) }}"
+    shell: "{{ item.shell|default('/bin/bash') }}"
+    password: "{{ item.password|default('') }}"
+    comment: "{{ item.gecos|default('') }}"
+  when: item.name != ansible_user_id
   with_items: "{{ users }}"
 
 - name: Set authorized_keys for users
@@ -19,10 +20,10 @@
     - authorized_keys
 
 - name: Disable PasswordAuthentication
-  lineinfile: 
-    dest: /etc/ssh/sshd_config 
-    regexp: "^#?PasswordAuthentication (yes|no)$" 
-    line: "PasswordAuthentication no" 
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^#?PasswordAuthentication (yes|no)$"
+    line: "PasswordAuthentication no"
     state: present
   notify:
     - reload sshd

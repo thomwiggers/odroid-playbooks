@@ -1,38 +1,39 @@
 ---
 
 installed_packages:
-  - vim
+  - ack
+  - base-devel
+  - clang
+  - cmake
+  - cronie
+  - curl
+  - git
+  - htop
+  - ltrace
+  - ntp
+  - openbsd-netcat
   - python
-  - python2
   - python-pip
-  - python2-pip
   - python-virtualenv
   - python-virtualenvwrapper
-  - base-devel
-  - cmake
-  - valgrind
-  - clang
-  - zsh
-  - git
-  - svn
-  - ntp
-  - cronie
-  - htop
+  - python2
+  - python2-pip
   - strace
-  - ltrace
-  - wget
-  - curl
-  - tmux
-  - ack
+  - svn
   - the_silver_searcher
-  # powerline: fancy prompts
-  - powerline
-  - powerline-vim
-  - python-pygit2
+  - tmux
+  - valgrind
+  - vim
+  - wget
+  - zsh
 
 # NOTE: delete packages by moving them to the list below!
 
-removed_packages: []
+removed_packages:
+  - powerline
+  - powerline-vim
+  - avahi
+  - nss-mdns
 
 # Systemd services
 systemd_services:
@@ -41,4 +42,7 @@ systemd_services:
     enabled: yes
   - name: ntpd
     state: started
+    enabled: yes
+  - name: avahi-daemon
+    state: stopped
     enabled: yes

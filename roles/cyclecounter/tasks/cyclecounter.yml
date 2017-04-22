@@ -15,7 +15,6 @@
 
 - name: Clone enable_arm_pmu
   git:
-    depth: 1
     repo: https://github.com/rdolbeau/enable_arm_pmu
     dest: /build/cyclecounter/
     version: 4be7b9fe5e9438a3bae95fc4dcef06aaa28fe871

@@ -25,9 +25,13 @@
     - packages
     - pacman
 
-- name: Manage systemd services
+- name: Reload systemd
   systemd:
     daemon_reload: yes
+
+- name: Manage systemd services
+  systemd:
+    no_block: yes
     enabled: "{{ item.enabled }}"
     state: "{{ item.state }}"
     name: "{{ item.name }}"
