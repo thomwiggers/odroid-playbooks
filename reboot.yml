@@ -1,0 +1,10 @@
+---
+
+- name: reboot
+  hosts: all
+  become: true
+  tasks:
+    - shell: reboot
+      async: 0
+      poll: 0
+      ignore_errors: true

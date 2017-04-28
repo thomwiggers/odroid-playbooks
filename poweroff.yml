@@ -1,0 +1,10 @@
+---
+
+- name: poweroff
+  hosts: odroids
+  become: true
+  tasks:
+    - shell: poweroff
+      async: 0
+      poll: 0
+      ignore_errors: true
