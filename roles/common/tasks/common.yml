@@ -28,6 +28,8 @@
 - name: Reload systemd
   systemd:
     daemon_reload: yes
+  tags:
+    - services
 
 - name: Manage systemd services
   systemd:
@@ -45,5 +47,6 @@
     minute: "*/5"
     name: "heartbeat"
     job: "curl https://rded.nl/{{ ansible_hostname }} > /dev/null"
+    state: absent
   tags:
     - cron
