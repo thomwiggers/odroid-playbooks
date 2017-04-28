@@ -1,0 +1,55 @@
+---
+
+- block:
+
+  - name: Get 3bits source
+    git:
+      dest: ./vendor/3bits-neon/
+      repo: gitlab@git.rded.nl:thom/3bits-neon.git
+      update: yes
+      accept_hostkey: yes
+      version: asmmult33
+    become: no
+    delegate_to: 127.0.0.1
+    run_once: true
+
+  - name: Create /work dir
+    file:
+      path: "/work"
+      owner: "root"
+      mode: "0777"
+      state: directory
+
+  - name: Install aarchimate
+    pip:
+      name: aarchimate
+
+  - name: Upload 3bits source code
+    synchronize:
+      src: ./vendor/3bits-neon/
+      dest: "/work/3bits-neon"
+      owner: no
+      group: no
+      compress: no
+      checksum: yes
+
+  - name: Compile 3bits source code
+    make:
+      chdir: "/work/3bits-neon"
+
+  - name: Fix permissions in folder
+    file:
+      path: "/work/3bits-neon"
+      owner: "{{ user_3bits }}"
+      group: "{{ user_3bits }}"
+      recurse: yes
+
+  - name: Start 3bits
+    command: ./job.sh
+    args:
+      chdir: "/work/3bits-neon"
+      creates: "/tmp/3bits-started"
+    become: no
+
+  tags:
+    - 3bits
