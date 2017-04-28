@@ -41,6 +41,3 @@ systemd_services:
   - name: ntpd
     state: started
     enabled: yes
-  - name: avahi-daemon
-    state: stopped
-    enabled: yes
