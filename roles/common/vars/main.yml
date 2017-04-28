@@ -30,11 +30,8 @@ installed_packages:
 
 # NOTE: delete packages by moving them to the list below!
 
-removed_packages:
-  - powerline
-  - powerline-vim
-  - avahi
-  - nss-mdns
+# Order may matter for dependencies
+removed_packages: []
 
 # Systemd services
 systemd_services:
