@@ -20,7 +20,7 @@ installed_packages:
   - python2-pip
   - rsync
   - strace
-  - svn
+  - subversion
   - the_silver_searcher
   - tmux
   - valgrind
