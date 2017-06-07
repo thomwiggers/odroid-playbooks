@@ -10,7 +10,7 @@
     lineinfile:
       line: 'DISTCC_ARGS="{{ distcc_args }} --user nobody --allow 127.0.0.1"'
       regexp: '^DISTCC_ARGS='
-      path: /etc/conf.d/distccd
+      dest: /etc/conf.d/distccd
     notify:
       - restart distccd
 

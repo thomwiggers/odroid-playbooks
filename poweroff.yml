@@ -3,8 +3,9 @@
 - name: poweroff
   hosts: odroids
   become: true
+  gather_facts: false
   tasks:
-    - shell: poweroff
+    - shell: "poweroff"
       async: 0
       poll: 0
       ignore_errors: true

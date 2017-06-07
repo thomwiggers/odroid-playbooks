@@ -3,6 +3,7 @@
 - name: reboot
   hosts: all
   become: true
+  gather_facts: false
   tasks:
     - shell: reboot
       async: 0
